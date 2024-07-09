@@ -144,59 +144,81 @@ class _AdminPageState extends State<AdminPage> {
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Row(
                         children: [
-                          Text(
-                            "Text : " + ds["text"],
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold),
-                            overflow: TextOverflow.ellipsis,
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              ds["text"],
+                              style: TextStyle(fontSize: 16.0),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 5,
+                            ),
                           ),
-                          SizedBox(height: 10.0),
-                          Text(
-                            "Result : " + ds["result"],
-                            style: TextStyle(
-                                color: ds["result"] == "phishing"
-                                    ? Colors.red
-                                    : Colors.green,
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          SizedBox(height: 10.0),
-                          Text(
-                            "Phishing Probability : " +
-                                (ds["phishing_probability"] * 100)
-                                    .toStringAsFixed(2) +
-                                "%",
-                            style: TextStyle(
-                                color: Colors.red,
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          SizedBox(height: 10.0),
-                          Text(
-                            "Non-Phishing Probability : " +
-                                (ds["non_phishing_probability"] * 100)
-                                    .toStringAsFixed(2) +
-                                "%",
-                            style: TextStyle(
-                                color: Colors.green,
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          SizedBox(height: 10.0),
-                          Text(
-                            "Timestamp : " +
-                                ds["timestamp"].toDate().toString(),
-                            style:
-                                TextStyle(color: Colors.grey, fontSize: 16.0),
-                            overflow: TextOverflow.ellipsis,
+                          SizedBox(width: 20.0),
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 5.0, horizontal: 10.0),
+                                  decoration: BoxDecoration(
+                                    color: ds["result"] == "Phishing"
+                                        ? Colors.red
+                                        : Colors.green,
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
+                                  child: Text(
+                                    ds["result"],
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 10.0),
+                                LinearProgressIndicator(
+                                  value: ds["phishing_probability"],
+                                  backgroundColor: Colors.green,
+                                  valueColor:
+                                      AlwaysStoppedAnimation<Color>(Colors.red),
+                                ),
+                                SizedBox(height: 5.0),
+                                Text(
+                                  "Phishing: " +
+                                      (ds["phishing_probability"] * 100)
+                                          .toStringAsFixed(2) +
+                                      "%",
+                                  style: TextStyle(
+                                      fontSize: 12.0, color: Colors.red),
+                                ),
+                                LinearProgressIndicator(
+                                  value: ds["non_phishing_probability"],
+                                  backgroundColor: Colors.red,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.green),
+                                ),
+                                SizedBox(height: 5.0),
+                                Text(
+                                  "Non-Phishing: " +
+                                      (ds["non_phishing_probability"] * 100)
+                                          .toStringAsFixed(2) +
+                                      "%",
+                                  style: TextStyle(
+                                      fontSize: 12.0, color: Colors.green),
+                                ),
+                                SizedBox(height: 10.0),
+                                Text(
+                                  ds["timestamp"].toDate().toString(),
+                                  style: TextStyle(
+                                      fontSize: 12.0, color: Colors.grey),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),

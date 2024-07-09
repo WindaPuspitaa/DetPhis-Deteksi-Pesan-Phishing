@@ -33,7 +33,7 @@ class _DetectPageState extends State<DetectPage> {
     final text = _controller.text;
     try {
       final response = await http
-          .get(Uri.parse('https://ndaww.pythonanywhere.com/api?query=$text'));
+          .get(Uri.parse('https://wpspnt.pythonanywhere.com/api?query=$text'));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         final result = data['output'];

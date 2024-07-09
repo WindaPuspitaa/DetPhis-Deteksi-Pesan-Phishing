@@ -5,7 +5,7 @@ import 'package:flutter_application_test1/pages/history.dart';
 import 'package:flutter_application_test1/service/database.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:flutter_application_test1/pages/detail_info.dart';
+// import 'package:flutter_application_test1/pages/detail_info.dart';
 
 import '../auth/login_screen.dart';
 
@@ -54,18 +54,9 @@ class _HomePageState extends State<HomePage> {
             itemCount: snapshot.data.docs.length,
             itemBuilder: (context, index) {
               DocumentSnapshot ds = snapshot.data.docs[index];
-              return GestureDetector(
+              return InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DetailInfo(
-                        judul: ds["Judul"],
-                        deskripsi: ds["Deskripsi"],
-                        sumber: ds["Sumber"],
-                      ),
-                    ),
-                  );
+                  launchUrlString(ds["Sumber"]);
                 },
                 child: Container(
                   margin: EdgeInsets.only(bottom: 20.0),
